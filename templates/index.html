@@ -2,13 +2,13 @@
 
 
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html >
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>任务跟踪</title>
     <link href="/static/css/reset.css" rel="stylesheet" type="text/css" />
     <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/sunny/jquery-ui.css" />
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
     <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
     <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
     <script src="/static/js/index.js"></script>
@@ -26,15 +26,17 @@
         <div class="box">
 
             <div class="box todos">
-                <h2 class="box">Bill List</h2>
-                <ul>
-                    <li >
-                        $for bill in bills:
-                            $bill.fee
-                            <p>$bill.discription</p>                        
-                    </li>
-                </ul>
+                <div id="accordion">
+                    $for bill in bills:
+                    <h3>$bill.fee,$bill.create_time</h3>
+                        <div>
+                            <p>
+                                $bill.discription
+                            </p>
+                        </div>
+                </div>
             </div>
+
 
             <div class="box post">
                 <h2>记一笔</h2>
@@ -42,7 +44,7 @@
                     金额￥：<input type='number' name='fee' />
                     <br /><br />
                     <p>描述：<textarea rows=6 cols=35 name='discription'></textarea></p>
-                    <p>日期: <input type="text" id="create_time" /></p>
+                    <p>日期: <input type="text" id="create_time" name='create_time'/></p>
                     <p><input type="submit" class="submit" value="添加" /></p>
                 </form>
             </div>

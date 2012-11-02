@@ -26,7 +26,7 @@ class new:
 	def POST(self):
 		bill = web.input()
 		print bill
-		db.insert(tb,fee=bill.fee,discription=bill.discription,create_time=datetime.now())
+		db.insert(tb,fee=bill.fee,discription=bill.discription,create_time=bill.create_time)
 		return web.seeother('/')
 				
 
