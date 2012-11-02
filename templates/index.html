@@ -1,17 +1,23 @@
-﻿
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+﻿$def with(bills)
+
+
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>任务跟踪</title>
-<link href="../static/reset.css" rel="stylesheet" type="text/css" />
-<link href="../static/style.css" rel="stylesheet" type="text/css" />
+    <title>任务跟踪</title>
+    <link href="/static/css/reset.css" rel="stylesheet" type="text/css" />
+    <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/sunny/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+    <script src="/static/js/index.js"></script>
 </head>
 
 <body>
 <div class="page">
     <div class="header box">
-        <h1><a href="/">任务跟踪</a></h1>
+        <h1><a href="/">Family Bill</a></h1>
     </div>
 
     <div class="main box">
@@ -20,57 +26,23 @@
         <div class="box">
 
             <div class="box todos">
-                <h2 class="box">待办事项</h2>
+                <h2 class="box">Bill List</h2>
                 <ul>
                     <li >
-                        
-                        &nbsp;
-                        <a href="/todo/4/finish?status=yes">完成</a>,
-                        <a href="/todo/4/edit">修改</a>,
-                        <a href="/todo/4/delete" onclick="return confirm('删除以后不能恢复的，确定？')">删除</a>
-                    </li>
-                    <li >
-                        
-                        &nbsp;
-                        <a href="/todo/5/finish?status=yes">完成</a>,
-                        <a href="/todo/5/edit">修改</a>,
-                        <a href="/todo/5/delete" onclick="return confirm('删除以后不能恢复的，确定？')">删除</a>
-                    </li>
-                    <li >
-                        
-                        &nbsp;
-                        <a href="/todo/6/finish?status=yes">完成</a>,
-                        <a href="/todo/6/edit">修改</a>,
-                        <a href="/todo/6/delete" onclick="return confirm('删除以后不能恢复的，确定？')">删除</a>
-                    </li>
-                    <li >
-                        
-                        &nbsp;
-                        <a href="/todo/7/finish?status=yes">完成</a>,
-                        <a href="/todo/7/edit">修改</a>,
-                        <a href="/todo/7/delete" onclick="return confirm('删除以后不能恢复的，确定？')">删除</a>
-                    </li>
-                    <li class="finished">
-                        <del></del>
-                        &nbsp;
-                        <a href="/todo/8/finish?status=no">恢复</a>,
-                        <a href="/todo/8/edit">修改</a>,
-                        <a href="/todo/8/delete" onclick="return confirm('删除以后不能恢复的，确定？')">删除</a>
-                    </li>
-                    <li class="finished">
-                        <del></del>
-                        &nbsp;
-                        <a href="/todo/9/finish?status=no">恢复</a>,
-                        <a href="/todo/9/edit">修改</a>,
-                        <a href="/todo/9/delete" onclick="return confirm('删除以后不能恢复的，确定？')">删除</a>
+                        $for bill in bills:
+                            $bill.fee
+                            <p>$bill.discription</p>                        
                     </li>
                 </ul>
             </div>
 
             <div class="box post">
-                <h2>新增</h2>
-                <form action="/todo/new" method="post" id="post_new">
-                    <p><input type="text" name="title" class="long_txt" /></p>
+                <h2>记一笔</h2>
+                <form action="/new" method="post" id="post_new">
+                    金额￥：<input type='number' name='fee' />
+                    <br /><br />
+                    <p>描述：<textarea rows=6 cols=35 name='discription'></textarea></p>
+                    <p>日期: <input type="text" id="create_time" /></p>
                     <p><input type="submit" class="submit" value="添加" /></p>
                 </form>
             </div>
