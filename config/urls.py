@@ -7,4 +7,6 @@ urls = (
 	'/'	,					'main.index',
 	'/new',					'main.new',
 	'/view',				'main.view',
+	'/newMember',			'main.newMember',
+	'/allMember',			'main.allMember',
 	)

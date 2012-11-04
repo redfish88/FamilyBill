@@ -5,13 +5,14 @@
 <html >
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>任务跟踪</title>
+    <title>Family Bill</title>
     <link href="/static/css/reset.css" rel="stylesheet" type="text/css" />
     <link href="/static/css/style.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
     <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
     <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
     <script src="/static/js/index.js"></script>
+    <script type="text/javascript" src='/static/js/fill_member.js'></script>
 </head>
 
 <body>
@@ -28,8 +29,11 @@
             <div class="box todos">
                 <div id="accordion">
                     $for bill in bills:
-                    <h3>$bill.fee,$bill.create_time</h3>
+                    <h3>$bill.create_time</h3>
                         <div>
+                            <p>
+                                金额:$bill.fee
+                            </p>
                             <p>
                                 $bill.discription
                             </p>
@@ -43,10 +47,19 @@
                 <form action="/new" method="post" id="post_new">
                     金额￥：<input type='number' name='fee' />
                     <br /><br />
+                    <select name="member" id="member">
+                    </select>
                     <p>描述：<textarea rows=6 cols=35 name='discription'></textarea></p>
                     <p>日期: <input type="text" id="create_time" name='create_time'/></p>
+
                     <p><input type="submit" class="submit" value="添加" /></p>
                 </form>
+                <h2>
+                    <form action="/newMember" method="post" id="add_member">
+                        昵称：<input type="text" name="name" />
+                        <p><input type='submit' value='添加' /></p>
+                    </form>
+                </h2>
             </div>
 
         </div>
