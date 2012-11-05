@@ -12,7 +12,6 @@
     <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
     <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
     <script src="/static/js/index.js"></script>
-    <script type="text/javascript" src='/static/js/fill_member.js'></script>
 </head>
 
 <body>
@@ -29,7 +28,7 @@
             <div class="box todos">
                 <div id="accordion">
                     $for bill in bills:
-                    <h3>$bill.create_time</h3>
+                    <h3>$bill.create_time &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$bill.name</h3>
                         <div>
                             <p>
                                 金额:$bill.fee
@@ -47,7 +46,7 @@
                 <form action="/new" method="post" id="post_new">
                     金额￥：<input type='number' name='fee' />
                     <br /><br />
-                    <select name="member" id="member">
+                    购买人：<select name="member" id="member">
                     </select>
                     <p>描述：<textarea rows=6 cols=35 name='discription'></textarea></p>
                     <p>日期: <input type="text" id="create_time" name='create_time'/></p>
@@ -66,12 +65,7 @@
 
 
 
-    <div class="foot">
-        Copyright&copy; 任务跟踪
-        作者 <a href="http://simple-is-better.com/">Python.cn(news, jobs)</a>
-        &nbsp;
-        <a href="http://webpy.org/" target="_blank"><img src="/todo/static/images/webpy_ss.png" alt="powered by web.py" /></a>
-    </div>
+
 
 </div>
 </body>
