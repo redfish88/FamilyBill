@@ -7,7 +7,7 @@
         	collapsible: true,
         	heightStyle: "content"
         });
-      	$.post("/allMember", {
+      	$.post( "/allMember" , {
     	},
     	function(result) {
     		if(result){
@@ -19,5 +19,27 @@
     		}
 
     	});
+        $( "#dialog-form" ).dialog({
+            autoOpen: false,
+            height: 380,
+            width: 370,
+            modal: true,
+            buttons: {
+                "Create a bill": function() {
+                     $( "#post_new" ).submit();   
+                },
+                Cancel: function() {
+                    $( this ).dialog( "close" );
+                }
+            },
+            close: function() {
+                allFields.val( "" ).removeClass( "ui-state-error" );
+            }
+        });
+        $( "#create-user" )
+            .button()
+            .click(function() {
+                $( "#dialog-form" ).dialog( "open" );
+            });
 
     })

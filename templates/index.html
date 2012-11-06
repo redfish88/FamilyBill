@@ -11,7 +11,20 @@
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.1/themes/base/jquery-ui.css" />
     <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
     <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+    <script src="/static/js/jquery.bgiframe-2.1.2.js"></script>
     <script src="/static/js/index.js"></script>
+    <style>
+        body { font-size: 62.5%; }
+        label, input { display:block; }
+        input.text { margin-bottom:12px; width:95%; padding: .4em; }
+        fieldset { padding:0; border:0; margin-top:25px; }
+        h1 { font-size: 1.2em; margin: .6em 0; }
+        div#users-contain { width: 350px; margin: 20px 0; }
+        div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
+        div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+        .ui-dialog .ui-state-error { padding: .3em; }
+        .validateTips { border: 1px solid transparent; padding: 0.3em; }
+    </style>
 </head>
 
 <body>
@@ -20,8 +33,29 @@
         <h1><a href="/">Family Bill</a></h1>
     </div>
 
-    <div class="main box">
+        <button id="create-user">Create new user</button>
+        <br/><br/><br/>
+        <div id="dialog-form" title="Create new user">
+            <p class="validateTips">All form fields are required.</p>
+         
+            <form action="/new" method="post" id="post_new">
+            <fieldset>
 
+                <label for="name">金额</label>
+                <input type="number" name="fee" id="name" class="text ui-widget-content ui-corner-all" />
+
+                <label for="email">购买人：</label>
+                <select name="member" id="member">
+                </select>
+                <label for="password">描述：</label>
+                <p><textarea rows=6 cols=35 name='discription'></textarea></p>
+                <label >日期：</label>
+                <p> <input type="text" id="create_time" name='create_time'/></p>
+            </fieldset>
+            </form>
+        </div>
+    <div class="main box">
+        
 
         <div class="box">
 
@@ -42,14 +76,12 @@
 
 
             <div class="box post">
-                <h2>记一笔</h2>
+                <h2>记一笔</h2>   
                 <form action="/new" method="post" id="post_new">
                     金额￥：<input type='number' name='fee' />
                     <br /><br />
-                    购买人：<select name="member" id="member">
-                    </select>
+
                     <p>描述：<textarea rows=6 cols=35 name='discription'></textarea></p>
-                    <p>日期: <input type="text" id="create_time" name='create_time'/></p>
 
                     <p><input type="submit" class="submit" value="添加" /></p>
                 </form>
