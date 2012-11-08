@@ -21,8 +21,8 @@
     	});
         $( "#dialog-form" ).dialog({
             autoOpen: false,
-            height: 380,
-            width: 370,
+            height: 450,
+            width: 500,
             modal: true,
             buttons: {
                 "Create a bill": function() {

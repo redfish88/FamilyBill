@@ -20,7 +20,7 @@ def get_by_id(id):
 class index:
 	"""index page to display all bills"""
 	def GET(self):
-		sql = 'select a.create_time,fee,discription,name from fee_record a left join member b on a.member_id=b.id order by a.id desc'
+		sql = 'select a.consume_time,fee,discription,name from fee_record a left join member b on a.member_id=b.id order by a.consume_time desc'
 		bills = db.query(sql)
 		print bills[0]
 		return render.index(bills)
@@ -28,7 +28,7 @@ class new:
 	"""add new bill """
 	def POST(self):
 		bill = web.input()
-		db.insert(tb,fee=bill.fee,discription=bill.discription,member_id=bill.member,create_time=bill.create_time)
+		db.insert(tb,fee=bill.fee,discription=bill.discription,member_id=bill.member,consume_time=bill.create_time,create_time=datetime.now())
 		return web.seeother('/')
 class newMember:
 	"""add new memeber"""
