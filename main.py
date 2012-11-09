@@ -20,15 +20,14 @@ def get_by_id(id):
 class index:
 	"""index page to display all bills"""
 	def GET(self):
-		sql = 'select a.consume_time,fee,discription,name from fee_record a left join member b on a.member_id=b.id order by a.consume_time desc'
+		sql = 'select consume_time,fee,discription,name from fee_record a left join member b on a.member_id=b.id order by a.consume_time desc'
 		bills = db.query(sql)
-		print bills[0]
 		return render.index(bills)
 class new:
 	"""add new bill """
 	def POST(self):
 		bill = web.input()
-		db.insert(tb,fee=bill.fee,discription=bill.discription,member_id=bill.member,consume_time=bill.create_time,create_time=datetime.now())
+		db.insert(tb,fee=bill.fee,discription=bill.discription,member_id=bill.member,consume_time=bill.consume_time,create_time=datetime.now())
 		return web.seeother('/')
 class newMember:
 	"""add new memeber"""
@@ -45,6 +44,23 @@ class allMember:
 		return json.dumps(members)
 	def GET(self):
 		return self.POST()
+class searchBill:
+	"""docstring for searchBill"""
+	def __init__(self, arg):
+		super(searchBill, self).__init__()
+		self.arg = arg
+	def POST(self):
+		args 	   = web.input()
+		begin_time = args.begin_time
+		end_time   = args.end_time
+		member_id  = args.member_id
+		sql		   = '''select consume_time,fee,discription,name from fee_record a left join member b
+				 on a.member_id = b.id order by a.consume_time desc where consume_time >$begin_time
+				 and consume_time < $end_time and b.id=$member_id
+		      '''
+
+	def get(self):
+		return self.POST()	
 				
 
 #db.insert(tb,fee=12.3,DISCRIPTION='测试111',create_time=datetime.now())

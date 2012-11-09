@@ -13,9 +13,11 @@
     <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
     <script src="/static/js/index.js"></script>
     <style>
-        body { font-size: 100%; }
+        body { font-size: 80%; }
+        /*
         label, input { display:block; }
         input.text { margin-bottom:12px; width:95%; padding: .4em; }
+        */
         fieldset { padding:0; border:0; margin-top:25px; }
         h1 { font-size: 1.2em; margin: .6em 0; }
         div#users-contain { width: 350px; margin: 20px 0; }
@@ -34,6 +36,17 @@
 
         <button id="create-user">Create new bill</button>
         <br/><br/><br/>
+        <hr/>
+        <div id="search_bar">
+            <span>
+            开始日期： <input type="text" id="begin_time" style="width:20%" name='begin_time'/>
+            结束日期： <input type="text" id="end_time" style="width:20%" name='end_time'/>
+            </span>
+            购买人：   <select name="member_id" id="member_search">
+                        </select>
+        </div>
+        <br /><br/>
+        <hr />
         <div id="dialog-form" title="Create new bill">
             <p class="validateTips"></p>
          
@@ -45,7 +58,7 @@
                     </span>
                     </p>
                     <p>
-                    日期： <input type="text" id="create_time" name='create_time'/>
+                    日期： <input type="text" id="consume_time" name='consume_time'/>
                     </p>
                     <p>
                     购买人：
@@ -81,14 +94,6 @@
 
             <div class="box post">
                 <h2>记一笔</h2>   
-                <form action="/new" method="post" id="post_new">
-                    金额￥：<input type='number' name='fee' />
-                    <br /><br />
-
-                    <p>描述：<textarea rows=6 cols=35 name='discription'></textarea></p>
-
-                    <p><input type="submit" class="submit" value="添加" /></p>
-                </form>
                 <h2>
                     <form action="/newMember" method="post" id="add_member">
                         昵称：<input type="text" name="name" />

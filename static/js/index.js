@@ -1,5 +1,13 @@
     $(function() {
-        $( "#create_time" ).datepicker({
+        $( "#consume_time" ).datepicker({
+            showButtonPanel: true,
+            dateFormat: 'yy-mm-dd'
+        });
+        $( "#begin_time" ).datepicker({
+            showButtonPanel: true,
+            dateFormat: 'yy-mm-dd'
+        });
+        $( "#end_time" ).datepicker({
             showButtonPanel: true,
             dateFormat: 'yy-mm-dd'
         });
@@ -15,6 +23,7 @@
     				obj = result[i]
     				option = '<option value='+obj.id+'>'+obj.name+'</option>'
     				$("#member").append(option)
+                    $("#member_search").append(option)
     			}
     		}
 
