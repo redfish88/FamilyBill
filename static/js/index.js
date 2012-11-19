@@ -12,10 +12,9 @@
             dateFormat: 'yy-mm-dd'
         });
         $( "#accordion" ).accordion({
-        	collapsible: true,
-        	heightStyle: "content"
+                    collapsible: true,
+                    heightStyle: "content"
         });
-
 
       	$.post( "/allMember" , {
     	},
@@ -57,10 +56,14 @@
 
     })
     function fill_accordion( date,name,fee,discription){
-        $( '#accordion' ).append('<h3>' + date + ' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + name + '</h3>');
-        $( '#accordion' ).append('<div><p>金额：' + fee + '</p>'+'<p>' + discription + '</p></div>');
+        $( '#accd' ).append('<h3>' + date + ' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + name + '</h3>');
+        $( '#accd' ).append('<div><p>金额：' + fee + '</p>'+'<p>' + discription + '</p></div>');
 
     }
+    function test_button(){
+            $( "#accordion" ).accordion();
+    }
+
     function ajaxSearch(){
         $.post( "/" , {
             start_time : $( '#start_time' ).val(),
@@ -69,19 +72,12 @@
         },
         function(result) {
             if(result){
-                alert(result.length)
-                $( '#accordion' ).html('');
+
                 for(var i=0;i<result.length;i++){
                     obj = result[i];
 
                     fill_accordion(obj.consume_time,obj.name,obj.fee,obj.discription);
                 }
-                alert(1)
-                $( "#accordion" ).accordion({
-                    collapsible: true,
-                    heightStyle: "content"
-                });
-                alert(2)
 
             }
 
