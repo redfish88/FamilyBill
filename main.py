@@ -55,9 +55,7 @@ class allMember:
 		return self.POST()
 class searchBill:
 	"""docstring for searchBill"""
-	def __init__(self, arg):
-		super(searchBill, self).__init__()
-		self.arg = arg
+
 	def POST(self):
 		args 	   = web.input()
 		begin_time = args.begin_time
