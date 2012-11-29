@@ -48,7 +48,7 @@ class newMember:
 class allMember:
 	"""docstring for allMember"""
 	def POST(self):
-		members = db.query("select id,name,create_time from member order by name").list()
+		members = db.query("select id,name,create_time from member order by create_time").list()
 		web.header('Content-Type','application/json')
 		return json.dumps(members,default=dthandle)
 	def GET(self):
@@ -60,15 +60,28 @@ class searchBill:
 		args 	   = web.input()
 		begin_time = args.begin_time
 		end_time   = args.end_time
-		member_id  = args.member_id
-		sql		   = '''select consume_time,fee,discription,name from fee_record a left join member b
-				 on a.member_id = b.id order by a.consume_time desc where consume_time >$begin_time
-				 and consume_time < $end_time and b.id=$member_id
-		      '''
-
+		member_id  = int(args.member_id)
+		sql		   = 'select consume_time,fee,discription,name from fee_record a left join member b \
+					  on a.member_id = b.id  where 1=1'
+		
+		if begin_time != '':
+			sql = sql + ' and consume_time >$begin_time'
+		if end_time   != '':
+			sql = sql + ' and consume_time < $end_time'
+		if member_id  != 0:
+			sql = sql + ' and b.id=$member_id'
+		sql = sql + ' order by a.consume_time desc'
+		bills = db.query(sql,vars=locals()).list()
+		web.header('Content-Type','application/json')
+		return json.dumps(bills,default=dthandle)
 	def get(self):
 		return self.POST()	
-				
+class User_update(object):
+	"""docstring for User_update"""
+	def __init__(self, arg):
+		self.arg = arg
+	def POST(self):
+		pass
 
 #db.insert(tb,fee=12.3,DISCRIPTION='测试111',create_time=datetime.now())
 #result = db.select(tb,where='id=1')
