@@ -9,4 +9,5 @@ urls = (
 	'/view',				'main.view',
 	'/newMember',			'main.newMember',
 	'/allMember',			'main.allMember',
+	'/search',				'main.searchBill',
 	)

@@ -11,21 +11,22 @@
             showButtonPanel: true,
             dateFormat: 'yy-mm-dd'
         });
-        $( "#accordion" ).accordion({
-                    collapsible: true,
-                    heightStyle: "content"
-        });
 
       	$.post( "/allMember" , {
     	},
     	function(result) {
     		if(result){
-                $('#member_search').append('<option value=0>全部</option>');
+                $('#member_id').append('<option value=0>全部</option>');
                 for(var i=0;i<result.length;i++){
                     obj = result[i]
     				option = '<option value='+obj.id+'>'+obj.name+'</option>'
-    				$("#member").append(option)
-                    $("#member_search").append(option)
+    				$("#member").append(option);
+                    $("#member_id").append(option);
+                    $( "#users tbody" ).append( "<tr>" +
+                            "<td>" + obj.name + "</td>" + 
+                            "<td>" + obj.create_time + "</td>" + 
+                            "<td><a href='/del_user?userid=" + obj.id +"'>删除</a></td>" +
+                        "</tr>" ); 
     			}
     		}
 
@@ -48,16 +49,23 @@
                 allFields.val( "" ).removeClass( "ui-state-error" );
             }
         });
-        $( "#create-user" )
+        $( "#create-bill" )
             .button()
             .click(function() {
                 $( "#dialog-form" ).dialog( "open" );
             });
+        $( "#user-manage" )
+            .button()
+            .click(function() {
+                $("#target").show('explode',500);
+            });
+        $("#target").hide();
 
     })
     function fill_accordion( date,name,fee,discription){
-        $( '#accd' ).append('<h3>' + date + ' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + name + '</h3>');
-        $( '#accd' ).append('<div><p>金额：' + fee + '</p>'+'<p>' + discription + '</p></div>');
+        var entry = '<li><h3>' + date + ' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + name + '</h3>';
+        entry = entry + '<p>金额：' + fee + '</p>'+'<p>' + discription + '</p></li>';
+        $( '#entry' ).append(entry);
 
     }
     function test_button(){
@@ -65,20 +73,22 @@
     }
 
     function ajaxSearch(){
-        $.post( "/" , {
-            start_time : $( '#start_time' ).val(),
+        $.post( "/search" , {
+            begin_time : $( '#begin_time' ).val(),
             end_time   : $( '#end_time').val(),
-            member_id  : $( '#member_id option:seleted').val()
+            member_id  : $( '#member_id').val()
         },
         function(result) {
-            if(result){
-
+            $('#entry').html('');
+            if(result.length > 0 ){
                 for(var i=0;i<result.length;i++){
                     obj = result[i];
 
                     fill_accordion(obj.consume_time,obj.name,obj.fee,obj.discription);
                 }
 
+            }else{
+                $('#entry').html('<li>没有相关记录</li>');
             }
 
         });

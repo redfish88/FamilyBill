@@ -14,6 +14,7 @@
     <script src="/static/js/index.js"></script>
     <style>
         body { font-size: 80%; }
+        .toggler { width: 500px; height: auto }
         /*
         label, input { display:block; }
         input.text { margin-bottom:12px; width:95%; padding: .4em; }
@@ -21,8 +22,8 @@
         fieldset { padding:0; border:0; margin-top:25px; }
         h1 { font-size: 1.2em; margin: .6em 0; }
         div#users-contain { width: 350px; margin: 20px 0; }
-        div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
-        div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
+        div#effect  table { margin: 1em 0; border-collapse: collapse; width: 100%; }
+        div#effect table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
         .ui-dialog .ui-state-error { padding: .3em; }
         .validateTips { border: 1px solid transparent; padding: 0.3em; }
     </style>
@@ -34,15 +35,31 @@
         <h1><a href="/">Family Bill</a></h1>
     </div>
 
-        <button id="create-user">Create new bill</button>
+        <button id="create-bill">Create new bill</button>
+        <button id="user-manage">Manage user</button>
         <br/><br/><br/>
+        <div class="toggler" id="target">
+            <div id="effect" >
+                    <table id="users" class="ui-widget ui-widget-content" align="center">
+                        <thead>
+                            <tr class="ui-widget-header ">
+                                <th>Name</th>
+                                <th>Time</th>
+                                <th>Oper</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+            </div>
+        </div>
         <hr/>
         <div id="search_bar">
             <span>
             开始日期： <input type="text" id="begin_time" style="width:20%" name='begin_time'/>
             结束日期： <input type="text" id="end_time" style="width:20%" name='end_time'/>
             </span>
-            购买人：   <select name="member_id" id="member_search">
+            购买人：   <select name="member_id" id="member_id">
                         </select>
             <button id='search' onclick='ajaxSearch()'>查询</button>
         </div>
@@ -76,24 +93,32 @@
             </fieldset>
             </form>
         </div>
+        <div id="user-dialog">
+           
+
+
+        </div>
+
     <div class="main box">
         
 
         <div class="box">
 
             <div class="box todos">
-                <div id="accordion">
-                    $for bill in bills:
-                    <h3>$bill.consume_time &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$bill.name</h3>
-                        <div>
-                            <p>
-                                金额:$bill.fee
-                            </p>
-                            <p>
-                                $bill.discription
-                            </p>
-                        </div>
-                </div>
+                    <ul id='entry'>
+                       $for bill in bills:
+                            <li>
+                                <h3>$bill.consume_time &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$bill.name</h3>
+
+                                        <p>
+                                            金额:$bill.fee
+                                        </p>
+                                        <p>
+                                            $bill.discription
+                                        </p>
+                            </li>
+
+                    </ul>
 
             </div>
 
