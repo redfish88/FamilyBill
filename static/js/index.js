@@ -25,7 +25,8 @@
                     $( "#users tbody" ).append( "<tr>" +
                             "<td>" + obj.name + "</td>" + 
                             "<td>" + obj.create_time + "</td>" + 
-                            "<td><a href='/del_user?userid=" + obj.id +"'>删除</a></td>" +
+                            "<td><a href='/del_user/" + obj.id +"' onclick='return confirm(\""+
+                            "确定删除该成员？\")'>删除</a></td>" +
                         "</tr>" ); 
                 }
             }
@@ -57,14 +58,20 @@
         $( "#user-manage" )
             .button()
             .click(function() {
-                $("#target").show('explode',500);
+                $("#target").show('explode',1000);
             });
         $("#target").hide();
+        $("#user-hide").button().click(function(){
+            $("#target").hide('explode',1000);
+        });
 
     })
-    function fill_accordion( date,name,fee,discription){
+    function fill_accordion( id,date,name,fee,discription){
         var entry = '<li><h3>' + date + ' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + name + '</h3>';
-        entry = entry + '<p>金额：' + fee + '</p>'+'<p>' + discription + '</p></li>';
+        entry = entry + '<p>金额:' + fee + '</p>'+'<p>描述:' + discription + '</p>';
+        entry = entry + '<p align="right"><a href=\'/del_bill/'+ id + '\' onclick="return confirm(\'确定删除么？\')"'+
+                        '>删除</a></p></li>'
+                                        
         $( '#entry' ).append(entry);
 
     }
@@ -84,7 +91,7 @@
                 for(var i=0;i<result.length;i++){
                     obj = result[i];
 
-                    fill_accordion(obj.consume_time,obj.name,obj.fee,obj.discription);
+                    fill_accordion(obj.id,obj.consume_time,obj.name,obj.fee,obj.discription);
                 }
 
             }else{

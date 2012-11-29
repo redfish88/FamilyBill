@@ -39,6 +39,7 @@
         <button id="user-manage">Manage user</button>
         <br/><br/><br/>
         <div class="toggler" id="target">
+            <button id='user-hide'>hide</button>
             <div id="effect" >
                     <table id="users" class="ui-widget ui-widget-content" align="center">
                         <thead>
@@ -114,7 +115,10 @@
                                             金额:$bill.fee
                                         </p>
                                         <p>
-                                            $bill.discription
+                                            描述:$bill.discription
+                                        </p>
+                                        <p align="right">
+                                            <a href='/del_bill/$bill.id' onclick="return confirm('确定删除么？')">删除</a>
                                         </p>
                             </li>
 
@@ -131,14 +135,10 @@
                         <p><input type='submit' value='添加' /></p>
                     </form>
                 </h2>
-                <button onclick='test_button()'>展示</button>
-
 
             </div>
 
         </div>
-
-
 
 
 

@@ -25,11 +25,11 @@ def get_by_id(id):
 class index:
 	"""index page to display all bills"""
 	def GET(self):
-		sql = 'select consume_time,fee,discription,name from fee_record a left join member b on a.member_id=b.id order by a.consume_time desc'
+		sql = 'select a.id,consume_time,fee,discription,name from fee_record a left join member b on a.member_id=b.id order by a.consume_time desc'
 		bills = db.query(sql)
 		return render.index(bills)
 	def POST(self):
-		sql = 'select consume_time,fee,discription,name from fee_record a left join member b on a.member_id=b.id order by a.consume_time desc'
+		sql = 'select a.id,consume_time,fee,discription,name from fee_record a left join member b on a.member_id=b.id order by a.consume_time desc'
 		bills = db.query(sql).list()
 		web.header('Content-Type','application/json')
 		return json.dumps(bills,default=dthandle)
@@ -43,12 +43,12 @@ class newMember:
 	"""add new memeber"""
 	def POST(self):
 		member =	web.input()
-		db.insert(tbmember,name=member.name,create_time=datetime.now())
+		db.insert(tbmember,name=member.name,isDelete=0,create_time=datetime.now())
 		return web.seeother('/')
 class allMember:
 	"""docstring for allMember"""
 	def POST(self):
-		members = db.query("select id,name,create_time from member order by create_time").list()
+		members = db.query("select id,name,create_time from member where isDelete=0 order by create_time").list()
 		web.header('Content-Type','application/json')
 		return json.dumps(members,default=dthandle)
 	def GET(self):
@@ -61,13 +61,13 @@ class searchBill:
 		begin_time = args.begin_time
 		end_time   = args.end_time
 		member_id  = int(args.member_id)
-		sql		   = 'select consume_time,fee,discription,name from fee_record a left join member b \
+		sql		   = 'select a.id,consume_time,fee,discription,name from fee_record a left join member b \
 					  on a.member_id = b.id  where 1=1'
 		
 		if begin_time != '':
-			sql = sql + ' and consume_time >$begin_time'
+			sql = sql + ' and consume_time >= $begin_time'
 		if end_time   != '':
-			sql = sql + ' and consume_time < $end_time'
+			sql = sql + ' and consume_time <= $end_time'
 		if member_id  != 0:
 			sql = sql + ' and b.id=$member_id'
 		sql = sql + ' order by a.consume_time desc'
@@ -76,12 +76,22 @@ class searchBill:
 		return json.dumps(bills,default=dthandle)
 	def get(self):
 		return self.POST()	
-class User_update(object):
+class User_delete(object):
 	"""docstring for User_update"""
-	def __init__(self, arg):
-		self.arg = arg
-	def POST(self):
-		pass
+	def POST(self,id):
+		db.update(tbmember,where='id=$id',isDelete=1,vars=locals())
+		return web.seeother('/')
+	def GET(self,id):
+		return self.POST(id)
+class Bill_delete(object):
+	"""docstring for User_update"""
+	def POST(self,id):
+		db.delete(tb,where='id=$id',vars=locals())
+		return web.seeother('/')
+	def GET(self,id):
+		return self.POST(id)
+
+		
 
 #db.insert(tb,fee=12.3,DISCRIPTION='测试111',create_time=datetime.now())
 #result = db.select(tb,where='id=1')
