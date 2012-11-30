@@ -72,6 +72,7 @@ class searchBill:
 			sql = sql + ' and b.id=$member_id'
 		sql = sql + ' order by a.consume_time desc'
 		bills = db.query(sql,vars=locals()).list()
+		print bills
 		web.header('Content-Type','application/json')
 		return json.dumps(bills,default=dthandle)
 	def get(self):
@@ -90,7 +91,12 @@ class Bill_delete(object):
 		return web.seeother('/')
 	def GET(self,id):
 		return self.POST(id)
-
+class count(object):
+	"""docstring for count"""
+	def POST(self):
+		
+	def GET(self):
+		return self.POST()		
 		
 
 #db.insert(tb,fee=12.3,DISCRIPTION='测试111',create_time=datetime.now())
