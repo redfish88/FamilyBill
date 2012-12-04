@@ -72,7 +72,6 @@ class searchBill:
 			sql = sql + ' and b.id=$member_id'
 		sql = sql + ' order by a.consume_time desc'
 		bills = db.query(sql,vars=locals()).list()
-		print bills
 		web.header('Content-Type','application/json')
 		return json.dumps(bills,default=dthandle)
 	def get(self):
@@ -91,10 +90,26 @@ class Bill_delete(object):
 		return web.seeother('/')
 	def GET(self,id):
 		return self.POST(id)
-class count(object):
+class countBill(object):
 	"""docstring for count"""
 	def POST(self):
+		args 	   = web.input()
+		begin_time = args.begin_time
+		end_time   = args.end_time
+		member_id  = int(args.member_id)
+		sql		   = 'select sum(a.fee) as count,name from fee_record a left join member b \
+					  on a.member_id = b.id  where 1=1'
 		
+		if begin_time != '':
+			sql = sql + ' and consume_time >= $begin_time'
+		if end_time   != '':
+			sql = sql + ' and consume_time <= $end_time'
+		if member_id  != 0:
+			sql = sql + ' and b.id=$member_id'
+		sql = sql + ' group by name order by a.consume_time desc'
+		bills = db.query(sql,vars=locals()).list()
+		web.header('Content-Type','application/json')
+		return json.dumps(bills,default=dthandle)
 	def GET(self):
 		return self.POST()		
 		

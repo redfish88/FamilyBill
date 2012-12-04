@@ -100,5 +100,27 @@
 
         });
     }
+    function ajaxCount(){
+        $.post( "/count" , {
+            begin_time : $( '#begin_time' ).val(),
+            end_time   : $( '#end_time').val(),
+            member_id  : $( '#member_id').val()
+        },
+        function(result) {
+            $('#entry').html('');
+            if(result.length > 0 ){
+
+                for(var i=0;i<result.length;i++){
+                    obj = result[i];
+
+                    $('#entry').append('<h3>'+obj.name+'&nbsp;&nbsp;&nbsp;&nbsp;'+obj.count+'</h3>')
+                }
+
+            }else{
+                $('#entry').html('<li>没有相关记录</li>');
+            }
+
+        });
+    }
 
 

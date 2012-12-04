@@ -10,6 +10,7 @@ urls = (
 	'/newMember',			'main.newMember',
 	'/allMember',			'main.allMember',
 	'/search'	,			'main.searchBill',
+	'/count'	,			'main.countBill',
 	'/del_user/(\d+)',		'main.User_delete',
 	'/del_bill/(\d+)',		'main.Bill_delete'
 	)
