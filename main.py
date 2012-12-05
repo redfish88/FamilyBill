@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # coding:utf-8
 #-*- coding: utf-8 -*-
+
+__version__  = '0.1'
+__author__   = 'lvrenkun'
+
+
 import sys,web,json
 from   datetime    import datetime,date
 from   config  	   import config
@@ -10,7 +15,7 @@ from   decimal 	   import Decimal
 db 	     = config.db
 render   = config.render
 tb 	 	 = 'fee_record'
-tbmember = 'member'
+tbmember = 'member' 
 def dthandle(obj):
 	if isinstance(obj,date):
 		return obj.isoformat()

@@ -12,5 +12,6 @@ urls = (
 	'/search'	,			'main.searchBill',
 	'/count'	,			'main.countBill',
 	'/del_user/(\d+)',		'main.User_delete',
-	'/del_bill/(\d+)',		'main.Bill_delete'
+	'/del_bill/(\d+)',		'main.Bill_delete',
+	'/caipiao',				'controllers.seed.caipiao',
 	)
