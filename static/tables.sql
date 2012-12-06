@@ -27,3 +27,13 @@ create table  fee_record(
 	field3			varchar(100)							--冗余字段	
 
 )
+
+create table lottery(
+	id 				int(11)			NOT NULL auto_increment	primary key,
+	title			varchar(100)	NOT NULL,
+	redball			varchar(100)	NOT null,
+	blueball		varchar(100)	NOT NULL,
+	lottery_date	varchar(100)			,
+	create_time 	date 			
+
+)

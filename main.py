@@ -32,6 +32,7 @@ class index:
 	def GET(self):
 		sql = 'select a.id,consume_time,fee,discription,name from fee_record a left join member b on a.member_id=b.id order by a.consume_time desc'
 		bills = db.query(sql)
+		print bills
 		return render.index(bills)
 	def POST(self):
 		sql = 'select a.id,consume_time,fee,discription,name from fee_record a left join member b on a.member_id=b.id order by a.consume_time desc'
@@ -55,6 +56,7 @@ class allMember:
 	def POST(self):
 		members = db.query("select id,name,create_time from member where isDelete=0 order by create_time").list()
 		web.header('Content-Type','application/json')
+		print members
 		return json.dumps(members,default=dthandle)
 	def GET(self):
 		return self.POST()
