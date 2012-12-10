@@ -7,13 +7,15 @@ import web,json
 import urllib2,re
 import web
 from datetime import datetime
+from config  import config
 
-db = web.database(dbn='mysql',db='family',user='root',pw='admin')
+db = config.db
+render = config.render
 
-def getHtml(url):
+#db = web.database(dbn='mysql',db='family',user='root',pw='admin')
+
+def getDataFromBD(url):
 	html = urllib2.urlopen(url).read()
-	return html
-def getData(html):
 	print html
 	reg_unicode = '<meta http-equiv="content-type" content="text/html;charset=(.*?)">'
 	code = re.compile(reg_unicode).findall(html)
@@ -38,7 +40,7 @@ def getData(html):
 	lotterydate = re.compile(reg_date).findall(html)
 	_lotterydate = lotterydate[0]
 	print _lotterydate
-	db.insert('lottery',title=_title,redball=_redball,blueball=_blueball,create_time=datetime.now())
+	db.insert('lottery',title=_title,redball=_redball,blueball=_blueball,lottery_date=_lotterydate,create_time=datetime.now())
 	return (_title,_redball,_blueball)
 
 
@@ -49,16 +51,13 @@ def create():
 
 	return {'red':red,'blue':blue}
 
-class caipiao(object):
+class lottery(object):
 	"""docstring for caipiao"""
 	def POST(self):
-		web.header('Content-Type','application/json')
-		return json.dumps(create())
+		#web.header('Content-Type','application/json')
+		return render.lottery()
 
 	def GET(self):
 		return self.POST()
-	
 if __name__ == '__main__':
-
-		print getData(getHtml('http://www.baidu.com/s?wd=%E5%8F%8C%E8%89%B2%E7%90%83'))
-		print sys.getfilesystemencoding()
+		getDataFromBD('http://www.baidu.com/s?wd=%E5%8F%8C%E8%89%B2%E7%90%83')	
