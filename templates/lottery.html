@@ -1,7 +1,9 @@
+$def with(lotterys)
 <!DOCTYPE html>
 
 <html>
 <head>
+	<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
 	<script type="text/javascript" src='/static/js/lottery.js'></script>
 	<style>
 		.redball {
@@ -9,7 +11,8 @@
 			width: 20px;
 			word-wrap: normal;
 			font-weight: bold;
-			font-size: 14px;
+			font-family: arial;
+			font-size: 13.63636302947998px;
 			height: 20px;
 			text-align: center;
 			vertical-align: middle;
@@ -18,26 +21,48 @@
 			display: inline-block;
 			margin: 3px 2px;
 		}
+		.blueball{
+			background: transparent url(http://open.baidu.com/stat/image/op_caipiao_green.gif) no-repeat scroll center;
+			width: 20px;
+			word-wrap: normal;
+			font-weight: bold;
+			font-family: arial;
+			font-size: 13.63636302947998px;
+			height: 20px;
+			text-align: center;
+			vertical-align: middle;
+			color: white;
+			line-height: 20px;
+			display: inline-block;
+			margin: 3px 2px;
+			
+		}
+		.lottery{
+			padding: 1em;
+			border:1px dashed #2F6FAB;
+			background-color: #F9F9F9;
+			width:600px;
+			height: 40px
+		}
 	</style>
 </head>
 <body>
-		<div class="op_caipiao_ball">  
-			<span class='redball'>8</span>
-		</div>
+		<h2 align="center">双色球</h2>
+		<hr/>
+		$for lottery in lotterys:
+			<div class="lottery">  
+				<font style="font-weight:bold;padding-top: 10px;">$lottery.title</font>
+				$for rball in lottery.redball.split(','):
+					<span class='redball'>$rball</span>
+				<span class='blueball'>$lottery.blueball</span>
 
+				<span  style="font-weight: normal;font-family: simsun;padding-left:40px">$lottery.lottery_date</span>
+
+
+			</div>
+			<br /><br />
 
 </body>
-
-
-
-
-
-
-
-
-
-
-
 
 
 

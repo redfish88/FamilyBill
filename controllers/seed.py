@@ -2,12 +2,14 @@
 # coding:utf-8
 #-*- coding: UTF-8 -*-
 
-import random,sys
+import random,sys,os
 import web,json
 import urllib2,re
 import web
 from datetime import datetime
+
 from config  import config
+
 
 db = config.db
 render = config.render
@@ -19,8 +21,6 @@ def getDataFromBD(url):
 	print html
 	reg_unicode = '<meta http-equiv="content-type" content="text/html;charset=(.*?)">'
 	code        = re.compile(reg_unicode).findall(html)
-	print '\n'
-	print code
 	#html = html.decode('utf-8').encode(sys.getfilesystemencoding())
 	reg_title 	 = '<p class="op_caipiao_date">(.*?)</p>'
 	reg_redball  = '<span class="op_caipiao_red">(.*?)</span>'
@@ -58,6 +58,8 @@ class lottery(object):
 		return render.lottery()
 
 	def GET(self):
-		return self.POST()
+		sql = 'select id,title,redball,blueball,lottery_date from lottery order by create_time desc'
+		lotterys = db.query(sql)
+		return render.lottery(lotterys)
 if __name__ == '__main__':
 		getDataFromBD('http://www.baidu.com/s?wd=%E5%8F%8C%E8%89%B2%E7%90%83')	
