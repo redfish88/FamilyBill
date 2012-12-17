@@ -16,7 +16,7 @@ def getHtml(url):
 def getData(html):
 	print html
 	reg_unicode = '<meta http-equiv="content-type" content="text/html;charset=(.*?)">'
-	code = re.compile(reg_unicode).findall(html)
+	code        = re.compile(reg_unicode).findall(html)
 	print '\n'
 	print code
 	#html = html.decode('utf-8').encode(sys.getfilesystemencoding())
@@ -27,15 +27,15 @@ def getData(html):
 	title = re.compile(reg_title).findall(html)
 	_title = title[0]
 	print _title
-	redball = re.compile(reg_redball).findall(html)
-	sp = ','
+	redball      = re.compile(reg_redball).findall(html)
+	sp           = ','
 	print sp.join(redball)
-	_redball = sp.join(redball)
-	blueball = re.compile(reg_blueball).findall(html)
-
-	_blueball = blueball[0]
+	_redball     = sp.join(redball)
+	blueball     = re.compile(reg_blueball).findall(html)
+	
+	_blueball    = blueball[0]
 	print blueball
-	lotterydate = re.compile(reg_date).findall(html)
+	lotterydate  = re.compile(reg_date).findall(html)
 	_lotterydate = lotterydate[0]
 	print _lotterydate
 	db.insert('lottery',title=_title,redball=_redball,blueball=_blueball,create_time=datetime.now())
@@ -57,6 +57,7 @@ class caipiao(object):
 
 	def GET(self):
 		return self.POST()
+		
 	
 if __name__ == '__main__':
 

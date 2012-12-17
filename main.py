@@ -116,7 +116,7 @@ class countBill(object):
 		sql = sql + ' group by name order by a.consume_time desc'
 		bills = db.query(sql,vars=locals()).list()
 		web.header('Content-Type','application/json')
-		return json.dumps(bills,default=dthandle)
+		return json.dumps(bills,default =dthandle)
 	def GET(self):
 		return self.POST()		
 		
