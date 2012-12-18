@@ -48,14 +48,14 @@ def create():
 	red  = random.sample(range(1,34),6)
 	red.sort()
 	blue = random.sample(range(1,17),1)
-
 	return {'red':red,'blue':blue}
 
 class lottery(object):
 	"""docstring for caipiao"""
 	def POST(self):
-		#web.header('Content-Type','application/json')
-		return render.lottery()
+		web.header('Content-Type','application/json')
+		print json.dumps(create())
+		return json.dumps(create())
 
 	def GET(self):
 		sql = 'select id,title,redball,blueball,lottery_date from lottery order by create_time desc'
