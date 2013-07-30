@@ -5,7 +5,6 @@
 import random,sys,os
 import web,json
 
-import web
 from datetime import datetime
 
 from config  import config

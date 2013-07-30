@@ -14,4 +14,5 @@ urls = (
 	'/del_user/(\d+)',		'main.User_delete',
 	'/del_bill/(\d+)',		'main.Bill_delete',
 	'/lottery',				'controllers.seed.lottery',
+	'/report',				'controllers.report.Report'
 	)
