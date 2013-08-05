@@ -1,6 +1,11 @@
 
 $(document).ready(function() {
 
+        $.post("/report",
+            function(result){
+                alert(result);
+            });
+
         $('#container').highcharts({
             chart: {
                 type: 'spline'

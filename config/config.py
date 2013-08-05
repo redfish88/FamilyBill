@@ -15,6 +15,15 @@ config = web.storage(
 web.template.Template.globals['render'] = render
 web.template.Template.globals['config'] = config
 
+def _Test():
+	sql = 'select consume_time from fee_record group by consume_time'
+	date = db.query(sql).list()
+	for d in date:
+		print d.consume_time
+	print date
+if __name__ == '__main__':
+	_Test()
+
 
 
 

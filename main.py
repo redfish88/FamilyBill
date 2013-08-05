@@ -40,27 +40,34 @@ def getBallByTitle(title):
 	return False
 
 def getDataFromBD():
-	html = urllib2.urlopen('http://www.baidu.com/s?wd=%E5%8F%8C%E8%89%B2%E7%90%83').read()
-	reg_unicode = '<meta http-equiv="content-type" content="text/html;charset=(.*?)">'
-	#code        = re.compile(reg_unicode).findall(html)
-	#html = html.decode('utf-8').encode(sys.getfilesystemencoding())
-	reg_title 	 = '<p class="op_caipiao_date">(.*?)</p>'
-	reg_redball  = '<span class="op_caipiao_red">(.*?)</span>'
-	reg_blueball = '<span class="op_caipiao_green">(.*?)</span>'
-	reg_date	 = '<div class="op_caipiao_text" style="font-weight:normal;font-family:simsun;">(.*?)</div>'
-	title = re.compile(reg_title).findall(html)
-	_title = title[0]
-	flag 		 = getBallByTitle(_title)
-	if flag:
-		redball      = re.compile(reg_redball).findall(html)
-		sp           = ','
-		_redball     = sp.join(redball)
-		blueball     = re.compile(reg_blueball).findall(html)
-		_blueball    = blueball[0]
-		lotterydate  = re.compile(reg_date).findall(html)
-		_lotterydate = lotterydate[0]
-		db.insert('lottery',title=_title,redball=_redball,blueball=_blueball,lottery_date=_lotterydate,create_time=datetime.now())
+	try:
 
+		html = urllib2.urlopen('http://www.baidu.com/s?wd=%E5%8F%8C%E8%89%B2%E7%90%83').read()
+		reg_unicode = '<meta http-equiv="content-type" content="text/html;charset=(.*?)">'
+		#code        = re.compile(reg_unicode).findall(html)
+		#html = html.decode('utf-8').encode(sys.getfilesystemencoding())
+		reg_title 	 = '<p class="op_caipiao_date">(.*?)</p>'
+		reg_redball  = '<span class="op_caipiao_red">(.*?)</span>'
+		reg_blueball = '<span class="op_caipiao_green">(.*?)</span>'
+		reg_date	 = '<div class="op_caipiao_text" style="font-weight:normal;font-family:simsun;">(.*?)</div>'
+		title = re.compile(reg_title).findall(html)
+		_title = title[0]
+		flag 		 = getBallByTitle(_title)
+		if flag:
+			redball      = re.compile(reg_redball).findall(html)
+			sp           = ','
+			_redball     = sp.join(redball)
+			blueball     = re.compile(reg_blueball).findall(html)
+			_blueball    = blueball[0]
+			lotterydate  = re.compile(reg_date).findall(html)
+			_lotterydate = lotterydate[0]
+			db.insert('lottery',title=_title,redball=_redball,blueball=_blueball,lottery_date=_lotterydate,create_time=datetime.now())
+	except Exception, e:
+		raise
+	else:
+		pass
+	finally:
+		pass
 def schedulerCreeper():
 	getDataFromBD()
 	sched = Scheduler()
