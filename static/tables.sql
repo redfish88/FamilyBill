@@ -37,3 +37,10 @@ create table lottery(
 	create_time 	date 			
 
 )
+
+create table nature_date(
+	id 				int(11)			NOT NULL auto_increment	primary key,
+	day				date,
+	month			varchar(20),
+	year			varchar(20)
+)
