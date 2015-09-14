@@ -6,7 +6,7 @@ from config  import config
 import datetime
 from   decimal 	   import Decimal
 
-
+# 注释
 def dthandle(obj):
 	if isinstance(obj,datetime.date):
 		return obj.isoformat()
